@@ -25,8 +25,13 @@
                         <td>{{ $aluno->email}}</td>
                         <td>
                             <a href="{{route('aluno.atualizar', $aluno->id)}}">Atualizar</a>
-                        <td>Faremos na próxima aula</td>
-                        <td>Faremos na próxima aula</td>
+<                       </td>
+                        <td>
+                            <form action="{{ route('aluno.deletar', $aluno->id)}}" method="POST" onsubmit="return confirm('deseja realmente excluir');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Excluir</button>
+                        </td>
                         
                     </tr>
                 @empty

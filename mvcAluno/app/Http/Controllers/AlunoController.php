@@ -37,7 +37,7 @@ class AlunoController extends Controller
     public function update(Request $request, $id){
         $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => "required|string|max:255|unique:alunos,amail,$id"
+            'email' => "required|string|max:255|unique:alunos,email,$id"
         ]);
 
         $aluno = Aluno::findOrFail($id);
@@ -48,5 +48,12 @@ class AlunoController extends Controller
 
         $aluno->save();
         return redirect()->back()->with('succes' , 'Aluno atualizado com sucesso');
+    }
+
+    public function deletar($id){
+        $aluno = Aluno::findOrFail($id); //buscar o aluno para depois deletar
+        $aluno->delete();
+
+        return redirect()->route('aluno.listar')->with('sucess', 'Aluno excluído co sucesso!');
     }
 }

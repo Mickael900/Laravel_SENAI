@@ -12,10 +12,10 @@
         <p style="color:green">{{ session('sucess')}}</p>
     @endif
 
-    <form action="">
+    <form action="{{route('aluno.salvar') }}" method="POST">
         @csrf
-        <label> for="nome">Nome: </label>
-        <input> type="text" name="nome" id="nome" placeholder="Nome..."
+        <label for="nome">Nome: </label>
+        <input type="text" name="nome" id="nome" placeholder="Nome..."
             require value="{{ old('nome')}}"
         >
         <br></br>

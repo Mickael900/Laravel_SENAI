@@ -8,11 +8,11 @@
 <body>
     <h1>Atualizar Aluno<h1>
 
-    @if(sesssion('sucess'))
-        <p style="color: green">{{ session('sucess')}}</p>
+    @if(session('success'))
+        <p style="color: green">{{ session('success')}}</p>
     @endif
 
-    <form action="{{route ('aluno.update', $aluno->id}}" method="POST">
+    <form action="{{route ('aluno.update', $aluno->id)}}" method="POST">
         @csrf
         @method('PUT')
 
@@ -20,7 +20,7 @@
             value="{{old('nome',$aluno->nome)}}" required>
         
         <input type="text" name="email"
-            value="{{old('email', $aluno->email)}}" required>  
+            value="{{old('email', $aluno->email)}}"  required>  
             
         <button type="submit">Atualizar</button>
 
@@ -34,5 +34,6 @@
                 @endforeach
             </ul>
         </div>
+    @endif
 </body>
 </html>
