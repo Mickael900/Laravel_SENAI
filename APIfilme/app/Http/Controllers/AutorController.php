@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Filme;
 use App\Models\Autor;
 
@@ -8,27 +9,30 @@ use Illuminate\Http\Request;
 
 class AutorController extends Controller
 {
-    public function listar(){
-        $query = Autor::query();
-        $Autores = $query->get();
-        return view('listar', compact('Autores'));
-    }
+    public function listar(Request $request){
+        try {
+            $query = Autor::query();
 
-    public function add(Request $request){
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'dataNascimento' => 'required|date',
-            'email' => 'required|email|unique:autores,email',
-            'telefone' => 'required|string|max:20',
-        ]);
-        
-        Autor::create([
-            'nome' => $request->nome,
-            'dataNascimento' => $request->dataNascimento,
-            'email' => $request->email,
-            'telefone' => $request->telefone,
-        ]);
+            // Filtro por nome
+            // Select * from autores where nome like %VAR%
+            if ($request->filled('nome')) {
+                $query->where('nome', 'like', '%' . $request->nome . '%');
+            }
 
-        return redirect()->back()->with('success', 'Autor Cadastrado com sucesso!');
+            // Filtro por telefone
+            if ($request->filled('telefone')) {
+                $query->where('telefone', $request->telefone);
+            }
+
+            $Autores = $query->get();
+
+            return view('ListarAutor', compact('Autores'));
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "Erro interno do servidor",
+                'errors' => $e->getMessage()
+            ], 500);
+        }
     }
 }

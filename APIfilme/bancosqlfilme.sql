@@ -1,5 +1,5 @@
-create database filmeLaravel;
-use filmeLaravel;
+CREATE DATABASE ApiFilme;
+USE ApiFilme;
 
 create table Filme(
 	id int auto_increment primary key,
@@ -15,7 +15,7 @@ create table Filme(
 ALTER TABLE Filme
 ADD COLUMN autor_id INT,
 ADD CONSTRAINT fk_filmes_autores
-FOREIGN KEY (autor_id) REFERENCES Autor(id);
+FOREIGN KEY (autor_id) REFERENCES Autores(id);
 
 create table Autores(
 	id int auto_increment primary key,
@@ -28,4 +28,5 @@ create table Autores(
 );
 
 select * from Filme;
-select * from Autor;
+select * from Autores;
+select * from Autores;
